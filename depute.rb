@@ -11,6 +11,7 @@ def depute_email(name, email)
         hash.store(name[i], email[i])
         i += 1
     end
+    puts "depute_email ok !"
     return hash
 end
 #--------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ def get_name(page)
     page.css('//div/div/ul/li/a').grep(/M/).each do |node|
         @name << node.text
     end
-    puts "get_name ok"
+    puts "get_name ok!"
     return @name
 end
 #-------------------------------------------------------------------------------------
@@ -30,7 +31,7 @@ def get_url(page)
     page.css('//@href').grep(/OMC_PA/).each do |node|
         @url << node.to_s.gsub("/deputes/", "http://www2.assemblee-nationale.fr/deputes/")
     end
-    puts "get_url ok"
+    puts "get_url ok!"
     return @url
 end
 #-------------------------------------------------------------------------------------
@@ -44,7 +45,7 @@ def get_email(url)
             @email << node.to_s.gsub("mailto:", "")
         end
     end
-    puts @email
+    puts "get_email ok!"
     return @email
 end
 #------------------------------------------------------------------------------------
@@ -53,8 +54,9 @@ end
 #puis appelle la fonction depute_email avec 2 arguments 
 #car cette fonction transforme des tab en 1 seul hash.
 #le contenu de ces 2 hash sont les returns de la fonction get_name et get_email
-#cest deux fonction la generent des tableaux 
+#cest deux fonctions la generent des tableaux 
 #qui se remplissent avec le scrapping de ce qu'on leurs mets en paramettre
+#puis les ranges dans un Hash commun(nomdudéputé => sonadresse@email)
 def perform(page_web)
     hash = depute_email(get_name(page_web), get_email(get_url(page_web)))
     puts "Le programme fonctionne !!!!!!!!!!!!!!!!!"
