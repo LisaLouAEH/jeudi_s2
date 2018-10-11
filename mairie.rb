@@ -5,7 +5,7 @@ require 'open-uri'
 def get_the_email_of_a_townhal_from_its_webpage(page)
     #get 1 email adress from a particular web page => i found the path by right click inside the inspector, and copy , xpath
     page.xpath('/html/body/div/main/section[2]/div/table/tbody/tr[4]/td[2]').each do |email|
-        puts email.text
+        return email.text
       end
 end
 
@@ -40,10 +40,11 @@ def get_all_the_urls_of_val_doise_townhalls(pages)
         get_the_email_of_a_townhal_from_its_webpage(Nokogiri::HTML(open(url)))
     end
     #-----------------------------------------------------------------------------------------------
+    return hash_url
 end
 
 def perform
     return get_all_the_urls_of_val_doise_townhalls(Nokogiri::HTML(open("http://annuaire-des-mairies.com/val-d-oise.html")))
 end
-perform
+print perform
 
